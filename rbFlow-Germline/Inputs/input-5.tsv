@@ -1,0 +1,7 @@
+FlowCellX	SAMPLE1	libZ	1	Inputs/Myeloid_T_R1.fastq.gz	Inputs/Myeloid_T_R2.fastq.gz
+FlowCellX	SAMPLE2	libZ	1	Inputs/Myeloid_X_R1.fastq.gz	Inputs/Myeloid_X_R2.fastq.gz
+FlowCellY	SAMPLE2	libZ	1	Inputs/Myeloid_Y_R1.fastq.gz	Inputs/Myeloid_Y_R2.fastq.gz
+FlowCellY	SAMPLE3	libZ	1	Inputs/Myeloid_Y_R1.fastq.gz	Inputs/Myeloid_Y_R2.fastq.gz
+FlowCellY	SAMPLE4	libZ	1	Inputs/Myeloid_Y_R1.fastq.gz	Inputs/Myeloid_Y_R2.fastq.gz
+FlowCellY	SAMPLE5	libZ	1	Inputs/Myeloid_Y_R1.fastq.gz	Inputs/Myeloid_Y_R2.fastq.gz
+FlowCellY	SAMPLE6	libZ	1	Inputs/Myeloid_Y_R1.fastq.gz	Inputs/Myeloid_Y_R2.fastq.gz

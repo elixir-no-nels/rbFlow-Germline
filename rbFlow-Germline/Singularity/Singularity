@@ -1,0 +1,15 @@
+Bootstrap: docker
+From: continuumio/miniconda3
+
+%post
+/opt/conda/bin/conda config --add channels defaults
+/opt/conda/bin/conda config --add channels conda-forge
+/opt/conda/bin/conda config --add channels bioconda
+/opt/conda/bin/conda install -y bwa=0.7.17 gatk4=4.0.2.0 samtools=1.7
+
+%setup
+mkdir ${SINGULARITY_ROOTFS}/tsd
+mkdir ${SINGULARITY_ROOTFS}/net
+mkdir ${SINGULARITY_ROOTFS}/cluster
+mkdir ${SINGULARITY_ROOTFS}/work
+mkdir ${SINGULARITY_ROOTFS}/projects
