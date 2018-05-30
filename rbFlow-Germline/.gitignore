@@ -1,5 +1,0 @@
-Inputs/*.gz
-Outputs/*
-Singularity/*.img
-Singularity/*.simg
-rbFlowLite/wdl
