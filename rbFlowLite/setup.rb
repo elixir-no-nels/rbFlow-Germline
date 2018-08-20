@@ -6,8 +6,8 @@ def set_engine(engine: false)
     container = {
       container:  true,
       type:      :singularity,
-      repo:      '/home/ghis/Work/Git_Perso_GitLab/ElixirGermlineCaller2/Singularity/',
-      mountList: [],
+      repo:      '/media/01-workspace/04-pipelines/rbFlow-Germline/Singularity/',
+      mountList: ['/media'],
       optional_args: []
     }
   elsif engine == 'singularity_TSD_VM'
@@ -73,29 +73,28 @@ def set_reference(genome_version: '', intervals_file: false)
       hapmap:      '/XXXXXX/hapmap.vcf',
       intervals:   intervals_file
     }
-  elsif genome_version == 'ghis_test'
+  elsif genome_version == 'test'
     ref = {
       name:        'hg38_local_test',
-      genome_fas:  '/home/ghis/Work/References/HG38/Homo_sapiens_assembly38.fasta',
-      genome_2bit: '/home/ghis/Work/References/HG38/Homo_sapiens_assembly38.fasta.2bit',
-      kgenomes:    '/home/ghis/Work/References/HG38/1000G_phase1.snps.high_confidence.hg38.vcf.gz',
-      mills:       '/home/ghis/Work/References/HG38/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz',
-      dbsnp:       '/home/ghis/Work/References/HG38/dbsnp_common_all_20170710.vcf.gz',
-      omni:        '/home/ghis/Work/References/HG38/1000G_omni2.5.hg38.vcf.gz',
-      hapmap:      '/home/ghis/Work/References/HG38/hapmap_3.3.hg38.vcf.gz',
+      genome_fas:  '/media/01-workspace/01-data/refdata/hg38/Homo_sapiens_assembly38.fasta',
+      genome_2bit: '/media/01-workspace/01-data/refdata/hg38/Homo_sapiens_assembly38.fasta.2bit',
+      kgenomes:    '/media/01-workspace/01-data/refdata/hg38/1000G_phase1.snps.high_confidence.hg38.vcf.gz',
+      mills:       '/media/01-workspace/01-data/refdata/hg38/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz',
+      dbsnp:       '/media/01-workspace/01-data/refdata/hg38/dbsnp_146.hg38.vcf.gz',
+      omni:        '/media/01-workspace/01-data/refdata/hg38/1000G_omni2.5.hg38.vcf.gz',
+      hapmap:      '/media/01-workspace/01-data/refdata/hg38/hapmap_3.3.hg38.vcf.gz',
       intervals:   intervals_file
     }
   elsif genome_version == 'tsd_test'
     ref = {
       name:        'hg38_local_test',
-      genome_fas:  '/cluster/projects/p172/ghis/hg38-dev/Homo_sapiens_assembly38.fasta',
-      genome_2bit: '/cluster/projects/p172/ghis/hg38-dev/Homo_sapiens_assembly38.fasta.2bit',
-      kgenomes:    '/cluster/projects/p172/ghis/hg38-dev/1000G_phase1.snps.high_confidence.hg38.vcf.gz',
-      mills:       '/cluster/projects/p172/ghis/hg38-dev/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz',
-      dbsnp:       '/cluster/projects/p172/ghis/hg38-dev/dbsnp_common_all_20170710.vcf.gz',
-      omni:        '/cluster/projects/p172/ghis/hg38-dev/1000G_omni2.5.hg38.vcf.gz',
-      hapmap:      '/cluster/projects/p172/ghis/hg38-dev/hapmap_3.3.hg38.vcf.gz',
-
+      genome_fas:  '/media/01-workspace/01-data/refdata/hg38/Homo_sapiens_assembly38.fasta',
+      genome_2bit: '/media/01-workspace/01-data/refdata/hg38/Homo_sapiens_assembly38.fasta.2bit',
+      kgenomes:    '/media/01-workspace/01-data/refdata/hg38/1000G_phase1.snps.high_confidence.hg38.vcf.gz',
+      mills:       '/media/01-workspace/01-data/refdata/hg38/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz',
+      dbsnp:       '/media/01-workspace/01-data/refdata/hg38/dbsnp_146.hg38.vcf.gz',
+      omni:        '/media/01-workspace/01-data/refdata/hg38/1000G_omni2.5.hg38.vcf.gz',
+      hapmap:      '/media/01-workspace/01-data/refdata/hg38/hapmap_3.3.hg38.vcf.gz',
       intervals:   intervals_file
     }
   else

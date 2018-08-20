@@ -167,7 +167,7 @@ merge_sort(input_dir: input, output_dir: output, config: config, group_by_sample
 # Merging/MarkDuplicate
 input  = ouputs_folder + '/02_sorting'
 output = ouputs_folder + '/03_markduplicate'
-mark_duplicates_merge(input_dir: input, output_dir: output, config: config, group_by_samples: false ,container: container_setup, wf_log: wf_log)
+mark_duplicates(input_dir: input, output_dir: output, config: config, container: container_setup, wf_log: wf_log)
 
 # Recalibration (spark)
 input  = ouputs_folder + '/03_markduplicate'

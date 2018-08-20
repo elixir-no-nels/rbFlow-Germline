@@ -1,1 +1,1 @@
-sudo singularity build Tools.simg Singularity
+sudo singularity build Tools.simg Singularity.txt
