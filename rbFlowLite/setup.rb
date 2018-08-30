@@ -104,7 +104,7 @@ def set_reference(genome_version: '', intervals_file: false)
 end
 
 
-# ---- Ressources to use ----
+# ---- Resources to use ----
 def set_resources(type: '')
   config = {}
   if type == :laptop

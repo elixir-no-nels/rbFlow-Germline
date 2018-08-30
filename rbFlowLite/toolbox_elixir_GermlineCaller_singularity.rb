@@ -2,7 +2,7 @@ require 'pathname'
 require 'fileutils'
 
 # GATK setup (DRY)
-GATK_JAR = '/opt/conda/share/gatk4-4.0.2.0-0/gatk-package-4.0.2.0-local.jar'
+GATK_JAR = '/opt/conda/share/gatk4-4.0.8.1-0/gatk-package-4.0.8.1-local.jar'
 BWA_IMG = 'Tools.simg'
 GATK_IMG = 'Tools.simg'
 
