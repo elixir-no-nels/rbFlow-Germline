@@ -46,7 +46,7 @@ def usage(options)
   puts "-m    --set_ram            setup a custom amount of memory for GATK       Default Value: #{options[:set_ram]}"
   puts "-e    --set_engine         setup a container execution engine             Default Value: #{options[:engine]}"
   puts "-p    --preprocessing      preprocessing (mapping/sort/recalib/dedup)     Default Value: #{options[:preprocessing]}"
-  puts "-c    --calling            variant calling (HaplotypeCaller/recalib)      Default Value: #{options[:calling]}"
+  puts "-v    --variantcall        variant calling (HaplotypeCaller/recalib)      Default Value: #{options[:calling]}"
   puts "\n\n"
   puts 'TSV file format for the input samples list : text file format with unix return style (LF), tab separated fields, use # to comment a line :'
   puts 'flowcell_id    sample_id    library_id    lane    path/file_R1    path/file_R2'
@@ -97,7 +97,7 @@ OptionParser.new do |opts|
     options[:preprocessing] = arg
   end
 
-  opts.on('-c', '--calling', String, "variant calling (HaplotypeCaller/recalib) : #{options[:engine]}") do |arg|
+  opts.on('-v', '--variantcall', String, "variant calling (HaplotypeCaller/recalib) : #{options[:engine]}") do |arg|
     options[:calling] = arg
   end
 
