@@ -158,8 +158,8 @@ Logger.info message: "Parameters\tintervals_file      \t#{intervals_file}",     
 Logger.info message: "Parameters\tresource type       \t#{config}",                   logfile: wf_log
 Logger.info message: "Parameters\tLog                 \t#{:wf_log}",                  logfile: wf_log
 Logger.info message: "Parameters\tEngine              \t#{engine}",                   logfile: wf_log
-Logger.info message: "Parameters\preprocessing        \t#{preprocessing}",            logfile: wf_log
-Logger.info message: "Parameters\tcalling             \t#{calling}",                  logfile: wf_log
+Logger.info message: "Parameters\preprocessing        \t#{options[:preprocessing]}",  logfile: wf_log
+Logger.info message: "Parameters\tcalling             \t#{options[:calling]}",        logfile: wf_log
 Logger.info message: "Parameters\tcontainers config   \t#{container_setup}",          logfile: wf_log
 Logger.info message: '==============================================================================', logfile: wf_log
 
@@ -173,18 +173,18 @@ if options[:preprocessing]
   input  = inputs_csv
   output = ouputs_folder + '/01_mapping'
   mapping_from_list(input_csv: input, output_dir: output, reference: references, config: config, container: container_setup, wf_log: wf_log)
-  
+
   # Mergin/Sorting
   input  = ouputs_folder + '/01_mapping'
   output = ouputs_folder + '/02_sorting'
   merge_sort(input_dir: input, output_dir: output, config: config, group_by_samples: true ,container: container_setup, wf_log: wf_log)
-  
-  
+
+
   # Merging/MarkDuplicate
   input  = ouputs_folder + '/02_sorting'
   output = ouputs_folder + '/03_markduplicate'
   mark_duplicates(input_dir: input, output_dir: output, config: config, container: container_setup, wf_log: wf_log)
-  
+
   # Recalibration (spark)
   input  = ouputs_folder + '/03_markduplicate'
   output = ouputs_folder + '/04_recalibration'
@@ -197,17 +197,17 @@ if options[:calling]
   input  = ouputs_folder + '/04_recalibration'
   output = ouputs_folder + '/05_haplotypecaller'
   gatk_haplotype_caller(input_dir: input, output_dir: output, reference: references, config: config, container: container_setup, wf_log: wf_log)
-  
+
   # GenotypeGVCF
   input  = ouputs_folder + '/05_haplotypecaller'
   output = ouputs_folder + '/06_genotype_GVCF'
   gatk_genotype_GVCF(input_dir: input, output_dir: output, reference: references, config: config, container: container_setup, wf_log: wf_log)
-  
+
   # Variants recalibration SNP
   input  = ouputs_folder + '/06_genotype_GVCF'
   output = ouputs_folder + '/07_variant_recalibrator_applied_snp'
   gatk_variant_recalibrator_snp(input_dir: input, output_dir: output, reference: references, config: config, container: container_setup, wf_log: wf_log)
-  
+
   # Variants recallibration INDELS
   input  = ouputs_folder + '/06_genotype_GVCF'
   output = ouputs_folder + '/07_variant_recalibrator_applied_indel'
