@@ -275,6 +275,7 @@ def gatk_haplotype_caller(input_dir: '', input_filter: '*', output_dir: '', refe
     else
       step.cmd_line << 'HaplotypeCaller'
       step.cmd_line << "-R #{reference[:genome_fas]}"
+      step.cmd_line << '--create-output-bam-index false'
     end
     step.cmd_line << "-I #{file}"
     step.cmd_line << "--emit-ref-confidence  GVCF"
@@ -284,6 +285,11 @@ def gatk_haplotype_caller(input_dir: '', input_filter: '*', output_dir: '', refe
     step.cmd_line << interval_opt
     step.run skip: skip_test, debug: false
   end
+  # Index the Bam file
+  index = Runner.new task_name: "Index GATK_ApplyBQSR_#{base_name}", wf_log: wf_log, task_log_dir: output_dir
+  index.cmd_line << "samtools index #{output_dir}/#{output_file}"
+  index.run skip: skip_test, debug: false
+  # cleanup
   FileUtils.rm_rf(tmp_dir)
 end
 
