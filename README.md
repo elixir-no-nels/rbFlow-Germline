@@ -64,10 +64,10 @@ The flag is `-r`, so the resulting command line so far looks like so:
 **Optional interval file**  
 If you don't know what an interval file is you probably don't need one. But if you want to use one you need to be certain that the interval file is compatible with the default reference files.  
 The hg38 reference files have chromosome names like this: `chr1`  
-For a complete list of contigs in the hg38 reference fasta file you can check out this .dict file: ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/hg38/Homo_sapiens_assembly38.dict
+For a complete list of contigs in the hg38 reference fasta file you can check out this .dict file: ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/hg38/Homo_sapiens_assembly38.dict  
 In case it asks for password there is none.
 
-The b37 reference files have chromosome names like this `1`, i.e no `chr` before the chromosome number.  
+The b37 reference files have chromosome names like this: `1`, i.e no `chr` before the chromosome number.  
 For a complete list of contigs in the b37 reference fasta file you can check out this .dict file: ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/b37/human_g1k_v37.dict.gz  
 In case it asks for password there is none.
 
