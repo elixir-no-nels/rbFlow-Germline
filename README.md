@@ -79,7 +79,8 @@ Here's the most relevant part from that link:
 
 If you want to use an interval list the flag is `-l` and you need provide a complete file path to it, for the default interval list it would look like this: `-l /put/the/actual/absolute/path/here/oskar.list`
 
-And that's it! You should be able to run the workflow now, if you have any additional questions you can contact (Kjell Petersen)[mailto:kjell.petersen@uib.no] or (Oskar Vidarsson)[mailto:oskar.vidarsson@uib.no].
+And that's it! You should be able to run the workflow now, if you have any additional questions you can contact [Kjell Petersen](mailto:kjell.petersen@uib.no) or [Oskar Vidarsson](mailto:oskar.vidarsson@uib.no).  
+The rest of the documentation covers technical nitty gritty things for systems developers. 
 
 ## Setting up the rbFlow-Germline slurm workflow from scratch
 
@@ -88,10 +89,11 @@ And that's it! You should be able to run the workflow now, if you have any addit
 
 
 
-## rbFlow-Germline slurm start script explanation
+# rbFlow-Germline slurm start script explanation
+The following text is intended to explain to a developer how the workflow is started.
 
-### Short introduction
-This script creates variables that are exported to the `runOnNode.sbatch` script. These variables are in turn used to e.g copy files and set the output directory. Read the detailed description below for a more thorough explanation. 
+## Short introduction
+The `./configure` script creates variables that are exported to the `runOnNode.sbatch` script. These variables are in turn used to e.g copy files and set the output directory. Read the detailed description below for a more thorough explanation. 
 
 ### Detailed line by line description of `./configure` and `runOnNode.sbatch`
 1. User runs `./configure`  
@@ -103,7 +105,7 @@ Mandatory flags are:
 	Optional flag  
 	* -l for interval file.  
 	Other  
-	* -h to print help message.  
+	* -h to print help message.
 
 2. The `./configure` script checks that all required flags have been used.
 3. The `./configure` script checks that all file paths are absolute.
@@ -113,7 +115,7 @@ Mandatory flags are:
 The `runOnNode.sbatch` script receives the variables and here's a description of what they do:
 	* INPUTS is used to copy the input files in the INPUTS directory to the `/scratch/rbFlowGermline/Inputs` directory.
 	* TSV and REFERENCE puts the path to the tsv file and reference file choices in the start command for rbFlow, i.e `ruby wf_elixir_GermlineCaller_csv_singularity.rb -i $TSV -o Outputs -r $REFERENCE -l Outputs/Log.log -e singularity -t 16 -m 55 `.
-	* INTERVAL is also added to the start command if it has been set, i.e `ruby wf_elixir_GermlineCaller_csv_singularity.rb -i $TSV -o Outputs -r $REFERENCE -l Outputs/Log.log -e singularity -t 16 -m 55 $INTERVAL`. See the explanation for the runOnNode.sbatch script for information about the if, then, else statement that runs the workflow either with or without an interval file.
+	* INTERVAL is also added to the start command if it has been set, i.e `ruby wf_elixir_GermlineCaller_csv_singularity.rb -i $TSV -o Outputs -r $REFERENCE -l Outputs/Log.log -e singularity -t 16 -m 55 -b $INTERVAL`. See the explanation for the runOnNode.sbatch script for information about the if, then, else statement that runs the workflow either with or without an interval file.
 	* Then the `runOnNode.sbatch` script is started.
 6. The `runOnNode.sbatch` script does the following
 	* First there are hardcoded settings for slurm to set the following variables.
@@ -132,18 +134,6 @@ The `runOnNode.sbatch` script receives the variables and here's a description of
 	* `ls /scratch/rbflow/Inputs` is executed only for troubleshooting purposes, this line can be deleted.
 	* The last step before the pipeline is actually started is an if statement that checks if the INTERVAL variable was set and executes the appropriate command based on the result.
 	* The last step is `cp -r /scratch/rbflow/outputs/* $OUTPUTDIR` and is executed no matter the exit status of the workflow, so any and all contents of the output directory are transfered back. 
-
-# Explanation of workflow steps
-## Inputs
-
-Read groups will be built following information provided in the tsv file.
-The merging/sorting step will merge all files from one sample, resulting in a single bam file for each sample.
-
-Files descriptor :
-
-```bash
-Flowcell_ID	SAMPLE_ID	LIB_ID	LANE	File_R1	File_R2
-```
 
 # Classic Germline calling pipeline workflow based on the GATK best practice
 
