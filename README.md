@@ -1,4 +1,6 @@
-## Instructions for how to use the rbFlow-Germline slurm workflow on TSD
+## Instructions for how to use the rbFlow-Germline slurm workflow on TSD  
+Disclaimer: These instructions have been verified to work with singularity version 2.5.0 and on the TSD slurm cluster. Any other slurm setups and/or singularity versions may or may not work.
+
 ### Short instructions  
 Create a tsv file, add information about the samples with either the example file [here](https://github.com/elixir-no-nels/rbFlow-Germline/blob/master/Inputs/input.tsv) or copy/paste the example below into a new file:  
 ```bash
@@ -84,10 +86,77 @@ The rest of the documentation covers technical nitty gritty things for systems d
 
 ## Setting up the rbFlow-Germline slurm workflow from scratch
 
+Begin by cloning this repository.
+
 `git clone https://github.com/elixir-no-nels/rbFlow-Germline/`  
+
+Then run  
 `cd rbFlow-Germline`
 
+You will need to go through the following major steps:  
+**Build or download the singularity image**  
+**Download reference files**
+**Configure rbFlow with various file paths**
 
+### Building the Singularity image from scratch  
+Make sure that singularity has been installed correctly before you begin. Follow the instructions for your desired version and operating system here: https://www.sylabs.io/docs/  
+The current version of the workflow has been tested using singularity version 2.5, it may or may not function as expected using any older or newer version.
+
+Once you have a working installation, proceed with the following steps to build a singularity image from scratch.  
+1. Assuming that you already are in the `rbFlow-Germline` directory, run `cd Singularity`
+2. Then run `sh SingularityBuild.sh` and enter your root password. 
+3. Once the installation process you're done!
+
+### Downloading a prebuilt Singularity image  
+Not currently an option.
+
+### Downloading reference files  
+If you run this command you will automatically download the complete hg38 reference files that have been thoroughly tested and verified to work with this workflow:  
+` wget -m ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle/hg38`  
+If you wish to download files manually you can use this link: ftp://gsapubftp-anonymous@ftp.broadinstitute.org/bundle  
+If it asks for a password just hit "ok" because there is no password.
+
+### Configuring rbFlow with various file paths  
+Open rbFlow/setup.rb with your favorite text editor and change the file path to where your `rbFlow-Germline/Singularity/` directory is.
+```ruby
+  if engine == 'singularity'
+    container = {
+      container:  true,
+      type:      :singularity,
+      repo:      '/change/this/path/rbFlow-Germline/Singularity/',
+      mountList: [],
+      optional_args: []
+    }
+```
+
+If you for some reason need to set it up on TSD, also change the 
+```ruby
+mountList: []
+optional_args: []
+``` 
+lines to this: 
+```ruby
+mountList: ['/tsd', '/net', '/cluster', '/work'],
+optional_args: ['-c']
+```
+
+Next you need to scroll down to the following chunk of code to set the file paths to the reference files.  
+```ruby
+  if genome_version == 'hg38'
+    ref = {
+      name:        'hg38',
+      genome_fas:  '/put/your/file/path/here/Homo_sapiens_assembly38.fasta',
+      genome_2bit: '/put/your/file/path/here/Homo_sapiens_assembly38.fasta.2bit',
+      kgenomes:    '/put/your/file/path/here/1000G_phase1.snps.high_confidence.hg38.vcf.gz',
+      mills:       '/put/your/file/path/here/Mills_and_1000G_gold_standard.indels.hg38.vcf.gz',
+      dbsnp:       '/put/your/file/path/here/dbsnp_146.hg38.vcf.gz',
+      omni:        '/put/your/file/path/here/1000G_omni2.5.hg38.vcf.gz',
+      hapmap:      '/put/your/file/path/here/hapmap_3.3.hg38.vcf.gz',
+      intervals:   intervals_file
+```
+Finish by saving the edits you've done to the file.
+
+This should be it, you should be able to run it with the `go.sh` script or the `./configure` script if you're running it on Colossus.
 
 # rbFlow-Germline slurm start script explanation
 The following text is intended to explain to a developer how the workflow is started.
